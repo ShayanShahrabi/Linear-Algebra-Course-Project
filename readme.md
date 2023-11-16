@@ -32,9 +32,9 @@ Displays the image.
 Saves the image with the given name and path.
 - `make_gray(self)`
 Converts the image to grayscale using the formula:
-$$
-gray\ value = 0.114 * blue + 0.587 * green + 0.299 * red
-$$
+```latex
+gray value = 0.114 * blue + 0.587 * green + 0.299 * red
+```
 A widely used approximation for converting a color image to grayscale. It is based on the relative luminance of the RGB color model and is often referred to as the "ITU-R Recommendation BT.601" or "Rec. 601" formula.
 It's worth noting that there are other formulas and color transformation techniques available for converting color images to grayscale, each with its own characteristics and purposes. The choice of the Rec. 601 formula in this particular implementation may be based on its simplicity and historical usage in various imaging standards and applications.
 - `invert_color(self)`
