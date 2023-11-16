@@ -11,18 +11,18 @@ To use the PyLinMan module, you need to have the following dependencies installe
 
 ## Usage
 
-1. Import the necessary modules:
+## 1. Import the necessary modules:
 
 ```python
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 ```
-2. Create an instance of the `Image` class and initialize it with an image:
+## 2. Create an instance of the `Image` class and initialize it with an image:
 ```python
 image = Image('path/to/image.jpg')
 ```
-3. The methods of the `Image` class
+## 3. The methods of the `Image` class
 
 - `__init__(self, path_to_image: str)` 
 Initializes the Image object with the image located at the given path.
