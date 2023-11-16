@@ -45,19 +45,36 @@ The brightness adjustment is applied by multiplying the `image_float` array by t
 Next, the `adjusted_image` array is clipped using `np.clip` to ensure that all pixel values are within the valid range of 0 to 255. Any values below 0 are set to 0, and any values above 255 are set to 255.
 
 - `rotate_image(self, degree: float, direction: str = 'counterclockwise')`
-Rotates the image by the given degree in the specified direction.
+The degree parameter is converted to radians using `np.radians`. This step is necessary because the trigonometric functions in NumPy expect angles in radians.
+The height and width of the image are extracted using `self.image.shape[:2]`. This provides the dimensions of the image, which are needed for the rotation transformation.
+The center coordinates of the image are calculated. This determines the point around which the image will be rotated.
+The cosine (`cos_theta`) and sine (`sin_theta`) of the angle in radians are calculated using NumPy's trigonometric functions np.cos and np.sin.
+A rotation matrix is created using the calculated cosine, sine, and center coordinates. The rotation matrix is a 2x3 array where the first row represents the X-axis transformation and the second row represents the Y-axis transformation.
+If the direction parameter is set to `counterclockwise`, the rotation matrix is inverted using cv2.invertAffineTransform. This is necessary because OpenCV's `warpAffine` function expects an affine transformation matrix for a counterclockwise rotation.
+The `cv2.warpAffine` function is used to apply the rotation transformation to the image. It takes the image, rotation matrix, and the desired output size (width and height) as parameters and returns the rotated image.
+Finally, the image attribute of the Image object is updated with the rotated image.
+After calling the `rotate_image` method, the image attribute of the Image object will contain the rotated image according to the specified degree and direction.
+
 - resize_image(self, scale_factor: float)`
 Resizes the image by the given scale factor.
+
 - `mirror_image(self, axis: str = 'horizontal')`
 Mirrors the image along the specified axis.
+
 - `edge_detection(self)` 
 Performs edge detection on the image using matrix functions.
+
 - `built_in_edge_detection(self, threshold1: float, threshold2: float)`
 Performs edge detection on the image using the Canny edge detection algorithm.
+
 - `apply_blur_filter(self)` 
 Applies a blur filter to the image using a 5x5 kernel.
+
 - `apply_sharpen_filter(self)`
 Applies a sharpen filter to the image.
+
 - `apply_emboss_filter(self)`
 Applies an emboss filter to the image.
+
 - `compute_histogram(self)`
+
