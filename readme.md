@@ -1,4 +1,6 @@
-# PyLinMan
+# Image Manipulation with Linear Algebra 
+
+## PyLinMan
 
 PyLinMan is a Python class that provides methods for image processing, including applying filters and computing histograms using linear algebra algorithms and techniques.
 
