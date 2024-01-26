@@ -2,11 +2,9 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-
+#-----------------------------------------------------------------------------
 class Image:
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def __init__(self, path_to_image: str) -> None:
         """
         Initialize the Image object with the image located at the given path.
@@ -15,7 +13,7 @@ class Image:
             path_to_image (str): The path to the image file.
         """
         self.image = cv2.imread(path_to_image)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def show_img(self) -> None:
         """
         Display the image.
@@ -24,7 +22,7 @@ class Image:
         plt.imshow(rgb_image)
         plt.axis('off')
         plt.show()
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def save_img(self, name: str, path: str = '') -> None:
         """
         Save the image with the given name and path.
@@ -36,7 +34,7 @@ class Image:
         file_path = os.path.join(path, name + '.jpg')
         plt.imsave(file_path, self.image)
         print(f"Image saved at: {file_path}")
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def make_gray(self) -> None:
         """
         Convert the image to grayscale.
@@ -50,14 +48,14 @@ class Image:
         gray_image = np.stack((gray_values, gray_values, gray_values), axis=-1)
 
         self.image = gray_image.astype(np.uint8)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def invert_color(self) -> None:
         """
         Invert the colors of the image.
         """
         inverted_image = 255 - self.image
         self.image = inverted_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def adjust_brightness(self, factor: float) -> None:
         """
         Adjust the brightness of the image by a given factor.
@@ -70,7 +68,7 @@ class Image:
         adjusted_image = np.clip(adjusted_image, 0, 255)
 
         self.image = adjusted_image.astype(np.uint8)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def rotate_image(self, degree: float, direction: str = 'counterclockwise') -> None:
         """
         Rotate the image by the given degree in the specified direction.
@@ -94,7 +92,7 @@ class Image:
 
         rotated_image = cv2.warpAffine(self.image, rotation_matrix, (width, height))
         self.image = rotated_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def resize_image(self, scale_factor: float) -> None:
         """
         Resize the image by the given scale factor.
@@ -108,7 +106,7 @@ class Image:
         scaling_matrix = np.array([[scale_factor, 0, 0], [0, scale_factor, 0]])
         resized_image = cv2.warpAffine(self.image, scaling_matrix, (new_width, new_height))
         self.image = resized_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def mirror_image(self) -> None:
         """
         Mirror the image along the x-axis (horizontal axis).
@@ -119,7 +117,7 @@ class Image:
 
         mirrored_image = cv2.warpAffine(self.image, reflection_matrix, (width, height))
         self.image = mirrored_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def edge_detection(self) -> None:
         """
         Perform edge detection on the image using matrix functions.
@@ -140,7 +138,7 @@ class Image:
         edge_image = np.clip(edges_x + edges_y, 0, 255).astype(np.uint8)
 
         self.image = edge_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def built_in_edge_detection(self, threshold1: float, threshold2: float) -> None:
         """
         Perform edge detection on the image using the Canny edge detection algorithm.
@@ -159,7 +157,7 @@ class Image:
         color_edges = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
 
         self.image = color_edges
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def apply_blur_filter(self):
         """
         Apply a blur filter to the image using a 5x5 kernel.
@@ -174,7 +172,7 @@ class Image:
         """
         kernel = np.ones((5, 5), dtype=np.float32) / 25
         self.image = cv2.filter2D(self.image, -1, kernel)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def apply_sharpen_filter(self):
         """
         Apply a sharpen filter to the image.
@@ -189,7 +187,7 @@ class Image:
         """
         kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], dtype=np.float32)
         self.image = cv2.filter2D(self.image, -1, kernel)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def apply_emboss_filter(self):
         """
         Apply an emboss filter to the image.
@@ -204,7 +202,7 @@ class Image:
         """
         kernel = np.array([[0, -1, -1], [1, 0, -1], [1, 1, 0]], dtype=np.float32)
         self.image = cv2.filter2D(self.image, -1, kernel)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def compute_histogram(self):
         """
         Compute and display the histogram of the image.
@@ -227,7 +225,7 @@ class Image:
         plt.ylabel("Frequency")
         plt.plot(hist)
         plt.show()
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def apply_box_blur(self, kernel_size: int):
         """
         Apply a box blur filter to the image.
@@ -237,7 +235,7 @@ class Image:
         """
         blur_filter = np.ones((kernel_size, kernel_size), np.float64) / (kernel_size * kernel_size)
         self.image = cv2.filter2D(self.image, -1, blur_filter)
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def apply_sharpening_kernels(self, kernels: list) -> list:
         """
         Apply a list of sharpening kernels to the image.
@@ -253,7 +251,7 @@ class Image:
             sharpened_image = cv2.filter2D(self.image, -1, kernel)
             sharpened_images.append(sharpened_image)
         return sharpened_images
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def adjust_saturation(self, saturation_factor: float):
         """
         Adjust the saturation of the image.
@@ -282,7 +280,7 @@ class Image:
         saturated_image = cv2.cvtColor(saturated_image, cv2.COLOR_HSV2BGR)
 
         return saturated_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def split_channels(self) -> tuple:
         """
         Split the image into blue, green, and red channels.
@@ -304,7 +302,7 @@ class Image:
         red_channel[:, :, 2] = r
 
         return blue_channel, green_channel, red_channel
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
     def adjust_hsv(self, hue_factor: float, saturation_factor: float, value_factor: float):
         """
         Adjust the hue, saturation, and value of the image.
@@ -329,4 +327,4 @@ class Image:
         enhanced_image = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2BGR)
 
         return enhanced_image
-    #------------------------------------------------------
+    #-------------------------------------------------------------------------
