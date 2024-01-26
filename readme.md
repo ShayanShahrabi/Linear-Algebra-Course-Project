@@ -1,4 +1,4 @@
-# Image Manipulation with Linear Algebra 
+# Image Manipulation with Linear Algebra and Matrices
 > This repo contains the mid-term project for my *Fundamentals of Matrices and Linear Algebra* course in SBU.
 
 ## Structure of the project
