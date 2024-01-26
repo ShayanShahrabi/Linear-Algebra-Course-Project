@@ -61,8 +61,6 @@ The degree parameter is converted to radians using `np.radians`. This step is ne
 The height and width of the image are extracted using `self.image.shape[:2]`. This provides the dimensions of the image, which are needed for the rotation transformation.
 The center coordinates of the image are calculated. This determines the point around which the image will be rotated.
 The cosine (`cos_theta`) and sine (`sin_theta`) of the angle in radians are calculated using NumPy's trigonometric functions np.cos and np.sin.
-
-
 A rotation matrix is created using the calculated cosine, sine, and center coordinates. The rotation matrix is a 2x3 array where the first row represents the X-axis transformation and the second row represents the Y-axis transformation.
 If the direction parameter is set to `counterclockwise`, the rotation matrix is inverted using cv2.invertAffineTransform. This is necessary because OpenCV's `warpAffine` function expects an affine transformation matrix for a counterclockwise rotation.
 The `cv2.warpAffine` function is used to apply the rotation transformation to the image. It takes the image, rotation matrix, and the desired output size (width and height) as parameters and returns the rotated image.
